@@ -1,4 +1,4 @@
-langchain-community
+langchain-openai
 langchain
 openai
 huggingface_hub
