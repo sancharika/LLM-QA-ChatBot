@@ -1,24 +1,36 @@
-from langchain_community.llms import OpenAI
-from dotenv import load_dotenv
 import streamlit as st
-import os
-api_key = os.getenv('OPENAI_API_KEY')
+
+from langchain.schema import HumanMessage,SystemMessage,AIMessage
+from langchain_openai import ChatOpenAI
+
+## Streamlit UI
+st.set_page_config(page_title="Conversational Q&A Chatbot")
+st.header("Hey, Let's Chat")
+
+from dotenv import load_dotenv
 load_dotenv()
+import os
 
-def get_openai_response(question):
-    llm=OpenAI(openai_api_key=api_key,
-    temperature=0.6)
-    response=llm(question)
-    return response
+chat=ChatOpenAI(temperature=0.5)
 
-st.set_page_config(page_title="Q&A")
-st.header("Langchain Application")
+if 'flowmessages' not in st.session_state:
+    st.session_state['flowmessages']=[
+        SystemMessage(content='You are a financial analyst who analys IPO of startup companies')
+    ]
+def get_chatmodel_response(question):
 
-input = st.text_input("Input: ", key="input")
-response= get_openai_response(input)
+    st.session_state['flowmessages'].append(HumanMessage(content=question))
+    answer=chat(st.session_state['flowmessages'])
+    st.session_state['flowmessages'].append(AIMessage(content=answer.content))
+    return answer.content
+
+input=st.text_input("Input: ",key="input")
+response=get_chatmodel_response(input)
 
 submit=st.button("Ask the question")
 
+## If ask button is clicked
+
 if submit:
-    st.subheader("The Respose is:")
+    st.subheader("The Response is")
     st.write(response)
