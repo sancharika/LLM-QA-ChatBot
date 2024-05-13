@@ -11,7 +11,7 @@ pinned: false
 
 # Conversational Q&A Chatbot
 
-This is a conversational Q&A chatbot built using Streamlit. The chatbot interacts with users by answering questions related to financial analysis of IPOs for startup companies.
+This is a conversational Q&A chatbot built using Streamlit. The chatbot interacts with users by answering questions related to financial analysis of IPOs for startup companies. [Try it OUT!!](https://huggingface.co/spaces/sancharikadebnath/LLM-QA-ChatBot)
 
 ## Setup and Usage
 
